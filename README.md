@@ -1,22 +1,56 @@
-Notre jeu est simple, il consiste a faire un pierre feuille ciseau avec un robot chaque debut de jeu, le joueur a acces a sa boutique qui lui permet d'acheter des potions qui lui servira tout au long du jeu. Le joueur doit gerer son economie de 1000 pieces et donc les rapartir pour acheter des potions qui lui convient.
-Au début de la partie, chaque joueur dispose d’une réserve de 1000 pièces d’or. Avant de commencer, vous avez accès à la boutique, où vous pouvez acheter des potions spéciales. Ces potions ont un prix et chacune possède un effet unique. Au début de chaque manche, tu peux décider d’utiliser une potion ou de garder tes ressources pour plus tard.
-Le duel se déroule selon la règle classique du Pierre-Feuille-Ciseaux. Toi et le robot choisissez secrètement un signe :
+# Red Project - Strategic Rock Paper Scissors
 
--Pierre inflige -12 PV
+A command-line interface (CLI) game developed in Go (Golang) that reinvents the classic Rock-Paper-Scissors by adding RPG elements, an economy system, and strategic combat mechanics.
 
--Ciseau inflige -11 PV
+## Project Overview
 
--Feuille inflige -10 PV
+In this game, the player faces a computer opponent in a duel to the death. Unlike the traditional game, this version introduces a health point (HP) system and a strategic shop. Players start with a budget of 1000 gold coins to purchase potions that can alter the outcome of the match. The goal is to reduce the opponent's HP to zero using a combination of standard moves and special items.
 
-Les potions utilisées viennent simplement ajouter leurs effets aux actions de base, ce qui rend chaque manche plus intense et stratégique. Le combat continue jusqu’à ce qu’un joueur tombe à 0 points de vie : celui qui tient encore debout est déclaré vainqueur.
+## Game Mechanics
 
+### 1. The Economy & Shop
+Before combat begins, the player accesses a shop to spend their starting budget (1000 coins). Strategic resource management is key, as purchased potions are the only way to gain an advantage during the duel.
 
+**Available Potions:**
+- **Red Potion (150 coins)**: Heals the player for 15 HP.
+- **Blue Potion (200 coins)**: Increases damage dealt by 15 points if the player wins the next round.
+- **Poison Potion (250 coins)**: Inflicts 5 damage to the opponent for 3 consecutive turns.
+- **Vengeance Potion (400 coins)**: Reflects all incoming damage back to the opponent for the current turn.
+- **Clairvoyance Potion (500 coins)**: Allows the player to predict the opponent's move on the next turn. A correct prediction deals massive damage (50 HP).
 
+### 2. Combat Rules
+The combat proceeds in rounds. In each round, both the player and the computer choose a sign.
 
-Regles du jeu : 
+**Damage Values:**
+- **Rock**: Beats Scissors and deals 12 damage.
+- **Scissors**: Beats Paper and deals 11 damage.
+- **Paper**: Beats Rock and deals 10 damage.
+- **Draw**: No damage is inflicted.
 
+### 3. Strategy
+At the start of each turn, the player can choose to use an item from their inventory or attack directly. The computer also has its own inventory generated randomly based on the same budget constraints and can use potions against the player.
 
-Au début de la partie, chaque joueur possède 1000 pièces d’or et une barre de points de vie. Avant d’entrer en combat contre le robot, le joueur a accès à une boutique où il peut acheter des potions. Ces potions coûtent un certain montant et ont leur propres utilité.
-Le combat se déroule ensuite selon les règles classiques du Pierre-Feuille-Ciseaux. La pierre bat le ciseau et inflige -12 points de vie, le ciseau bat la feuille et inflige -11 points de vie, et la feuille bat la pierre en infligeant -10 points de vie. En cas d’égalité, aucun dégât n’est infligé. Lorsque des potions sont utilisées, leurs effets s’ajoutent simplement au résultat de la manche, ce qui apporte une dimension tactique supplémentaire au jeu.
-L’utilisation de ces potions est entièrement stratégique, car au début de chaque manche, le joueur peut choisir d’en activer une ou de conserver ses ressources pour plus tard.
-La partie continue ainsi, manche après manche, jusqu’à ce qu’un joueur tombe à 0 points de vie. Celui qui parvient à conserver ses points de vie et à éliminer son adversaire est déclaré vainqueur. Ce jeu ne se limite donc pas au hasard du Pierre-Feuille-Ciseaux classique : il repose aussi sur l’utilisation stratégique des potions pour prendre l’avantage au bon moment.
+## Technical Structure
+
+The project is organized into modular packages to separate logic, user interface, and data management.
+
+- **main.go**: The entry point of the application. It orchestrates the game flow (setup, shop, combat).
+- **outils/**: A custom package containing the core game functions.
+  - **clear.go**: Utility to clear the terminal screen for a cleaner UI.
+  - **menu.go**: Handles the main menu display and user selection.
+  - **perso.go**: Defines the `Perso` structure (Player/AI attributes) and initialization logic.
+  - **inventaire.go**: Manages the shop interface and the AI's inventory generation algorithm.
+  - **combat.go**: Contains the main game loop, including move resolution, potion effects, and win/loss conditions.
+
+## Installation and Run
+
+### Prerequisites
+- Go installed (version 1.25 or higher).
+
+### Steps
+1. Clone the repository or download the source code.
+2. Open a terminal in the project directory.
+3. Run the game using the following command:
+
+```bash
+go run main.go
